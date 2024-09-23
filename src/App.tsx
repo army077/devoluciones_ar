@@ -34,7 +34,7 @@ const App: React.FC = () => {
                         options: { label: "Dashboard" },
                     },
                     {
-                        name: "clientes_devoluciones", // Este será el nombre del recurso
+                        name: "clientes_devoluciones", 
                         list: ClientesList,
                         create: ClientesCreate,
                         edit: ClientesEdit,
