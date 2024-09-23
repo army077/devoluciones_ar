@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Table, useTable } from "@pankod/refine-antd";
+import { List, Table, useTable , EditButton, DeleteButton,} from "@pankod/refine-antd";
 
 export const PiezasList: React.FC = () => {
     const { tableProps } = useTable();
@@ -13,6 +13,15 @@ export const PiezasList: React.FC = () => {
                 <Table.Column title="Ubicación Actual" dataIndex="ubicacion_actual" />
                 <Table.Column title="Fecha de Salida" dataIndex="fecha_salida" />
                 <Table.Column title="Fecha de Entrada" dataIndex="fecha_entrada" />
+                <Table.Column
+                    title="Acciones"
+                    render={(_, record) => (
+                        <>
+                            <EditButton recordItemId={record.id}  style={{ marginRight: 20 }}/>
+                            <DeleteButton recordItemId={record.id} />
+                        </>
+                    )}
+                />
             </Table>
         </List>
     );
