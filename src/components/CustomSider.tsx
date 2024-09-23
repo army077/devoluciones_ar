@@ -11,7 +11,11 @@ export const CustomSider: React.FC = () => {
     return (
         <Sider collapsible>
             <div style={{ padding: "16px", textAlign: "center", color: "#fff" }}>
-                <h3>Mi App</h3>
+                <img
+                    src="/AR LOGO.png"
+                    alt="Logo"
+                    style={{ width: "100%", marginBottom: "16px" }}
+                />
             </div>
             <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
                 <Menu.Item key="1" icon={<DashboardOutlined />}>
