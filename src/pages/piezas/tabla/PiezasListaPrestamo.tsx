@@ -35,10 +35,10 @@ const PiezasTable = () => {
 
     // Definir las columnas de la tabla
     const columns = [
-        { title: 'ID', dataIndex: 'id', key: 'id' },
+        { title: 'Tecnico', dataIndex: 'tecnico_nombre', key: 'tecnico_nombre' },
+        { title: 'Descripcion', dataIndex: 'descripcion', key: 'descripcion' },
         { title: 'Estado', dataIndex: 'estado', key: 'estado' },
-        { title: 'Persona', dataIndex: 'persona', key: 'persona' },
-        { title: 'Pieza', dataIndex: 'pieza', key: 'pieza' },
+        { title: 'Ubicacion Actual', dataIndex: 'ubicacion_actual', key: 'ubicacion_actual' },
     ];
 
     // Función para navegar hacia la página anterior
