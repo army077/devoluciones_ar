@@ -1,7 +1,7 @@
 import React from "react";
 import { Layout, Menu } from "antd";
 import { useRouterContext } from "@pankod/refine-core";
-import { DashboardOutlined, UserOutlined, ToolOutlined, ShopOutlined, BranchesOutlined } from "@ant-design/icons";
+import { DashboardOutlined, UserOutlined, ToolOutlined, ShopOutlined, BranchesOutlined, SettingOutlined } from "@ant-design/icons";
 
 const { Sider } = Layout;
 
@@ -32,6 +32,9 @@ export const CustomSider: React.FC = () => {
                 </Menu.Item>
                 <Menu.Item key="5" icon={<BranchesOutlined />}>
                     <Link to="/tecnicos_devoluciones">Técnicos</Link>
+                </Menu.Item>
+                <Menu.Item key="6" icon={<SettingOutlined />}>
+                    <Link to="/elementos">Elementos Reparar</Link>
                 </Menu.Item>
             </Menu>
         </Sider>

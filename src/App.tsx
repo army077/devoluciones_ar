@@ -10,6 +10,9 @@ import { ClientesEdit } from "./pages/clientes/ClientesEdit"; // Ejemplo para la
 import { PiezasList, } from "./pages/piezas/PiezasList"; // Ejemplo para la página de piezas
 import { PiezasCreate } from "./pages/piezas/PiezasCreate"; // Ejemplo para la página de piezas
 import { PiezasEdit } from "./pages/piezas/PiezasEdit"; // Ejemplo para la página de piezas
+import { ElementosEdit } from "./pages/elemento a reparar/ElementoEdit"; 
+import { ElementosCreate } from "./pages/elemento a reparar/ElementoCreate"; 
+import { ElementosList } from "./pages/elemento a reparar/ElementoList"; 
 import { SucursalesList } from "./pages/sucursales/SucursalesList"; // Ejemplo para sucursales
 import { SucursalesCreate } from "./pages/sucursales/SucursalesCreate"; // Ejemplo para sucursales
 import { SucursalesEdit } from "./pages/sucursales/SucursalesEdit"; // Ejemplo para sucursales
@@ -56,6 +59,12 @@ const App: React.FC = () => {
                         list: TecnicosList,
                         create: TecnicosCreate,
                         edit: TecnicosEdit,
+                    },
+                    {
+                        name: "elementos",
+                        list: ElementosList,
+                        create: ElementosCreate,
+                        edit: ElementosEdit,
                     },
                 ]}
                 routerProvider={routerProvider}
