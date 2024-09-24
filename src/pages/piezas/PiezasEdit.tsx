@@ -175,19 +175,19 @@ export const PiezasEdit: React.FC = () => {
                 <Form.Item label="Descripción del Problema" name="descripcion_problema" rules={[{ required: true }]}>
                     <Input.TextArea rows={4} />
                 </Form.Item>
-                <Form.Item label="Fecha de Cotización" name="fecha_cotizacion" initialValue={piezaData?.fecha_cotizacion} rules={[{ required: true }]}>
+                <Form.Item label="Fecha de Cotización" name="fecha_cotizacion" initialValue={piezaData?.fecha_cotizacion} >
                     <Input type="date" />
                 </Form.Item>
-                <Form.Item label="Fecha de Confirmación" name="fecha_confirmación" initialValue={piezaData?.fecha_confirmación} rules={[{ required: true }]}>
+                <Form.Item label="Fecha de Confirmación" name="fecha_confirmación" initialValue={piezaData?.fecha_confirmación} >
                     <Input type="date" />
                 </Form.Item>
-                <Form.Item label="Fecha de Reparación" name="fecha_reparacion" initialValue={piezaData?.fecha_reparacion} rules={[{ required: true }]}>
+                <Form.Item label="Fecha de Reparación" name="fecha_reparacion" initialValue={piezaData?.fecha_reparacion} >
                     <Input type="date" />
                 </Form.Item>
-                <Form.Item label="Fecha de Salida" name="fecha_salida" initialValue={piezaData?.fecha_salida} rules={[{ required: true }]}>
+                <Form.Item label="Fecha de Salida" name="fecha_salida" initialValue={piezaData?.fecha_salida} >
                     <Input type="date" />
                 </Form.Item>
-                <Form.Item label="Numero de Sello" name="numero_sello" initialValue={piezaData?.numero_sello} rules={[{ required: true }]}>
+                <Form.Item label="Numero de Sello" name="numero_sello" initialValue={piezaData?.numero_sello} >
                     <Input />
                 </Form.Item>
             </Form>
