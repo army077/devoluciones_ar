@@ -35,7 +35,7 @@ const PiezasTable = () => {
 
     // Definir las columnas de la tabla
     const columns = [
-        { title: 'Tecnico', dataIndex: 'tecnico_nombre', key: 'tecnico_nombre' },
+        { title: 'Tecnico' , dataIndex: 'tecnico_nombre', key: 'tecnico_nombre'  , render: (text: any) => text ? text : 'N hay tecnico'},
         { title: 'Descripcion', dataIndex: 'descripcion', key: 'descripcion' },
         { title: 'Estado', dataIndex: 'estado', key: 'estado' },
         { title: 'Ubicacion Actual', dataIndex: 'ubicacion_actual', key: 'ubicacion_actual' },
