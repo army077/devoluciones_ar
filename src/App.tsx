@@ -1,121 +1,67 @@
-import { GitHubBanner, Refine } from "@refinedev/core";
-import { DevtoolsPanel, DevtoolsProvider } from "@refinedev/devtools";
-import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
+import React from "react";
+import { Refine } from "@pankod/refine-core";
+import { notificationProvider, Layout } from "@pankod/refine-antd";
+import { BrowserRouter } from "react-router-dom";
+import { dataProvider } from "./dataProvider"; // Importa tu dataProvider personalizado
+import routerProvider from "@pankod/refine-react-router-v6"
+import { ClientesList } from "./pages/clientes/ClientesList"; // Ejemplo para la página de clientes
+import { ClientesCreate } from "./pages/clientes/ClientesCreate"; // Ejemplo para la página de clientes
+import { ClientesEdit } from "./pages/clientes/ClientesEdit"; // Ejemplo para la página de clientes
+import { PiezasList, } from "./pages/piezas/PiezasList"; // Ejemplo para la página de piezas
+import { PiezasCreate } from "./pages/piezas/PiezasCreate"; // Ejemplo para la página de piezas
+import { PiezasEdit } from "./pages/piezas/PiezasEdit"; // Ejemplo para la página de piezas
+import { SucursalesList } from "./pages/sucursales/SucursalesList"; // Ejemplo para sucursales
+import { SucursalesCreate } from "./pages/sucursales/SucursalesCreate"; // Ejemplo para sucursales
+import { SucursalesEdit } from "./pages/sucursales/SucursalesEdit"; // Ejemplo para sucursales
+import { TecnicosList } from "./pages/tecnicos/TecnicosList"; // Ejemplo para técnicos
+import { TecnicosCreate } from "./pages/tecnicos/TecnicosCreate"; // Ejemplo para técnicos
+import { TecnicosEdit } from "./pages/tecnicos/TecnicosEdit"; // Ejemplo para técnicos
+import { Dashboard } from "./components/Dashboard"; // Importa el Dashboard
+import { CustomSider } from "./components/CustomSider"; // Importa el Dashboard
 
-import {
-  ErrorComponent,
-  ThemedLayoutV2,
-  ThemedSiderV2,
-  useNotificationProvider,
-} from "@refinedev/antd";
-import "@refinedev/antd/dist/reset.css";
-
-import routerBindings, {
-  DocumentTitleHandler,
-  NavigateToResource,
-  UnsavedChangesNotifier,
-} from "@refinedev/react-router-v6";
-import dataProvider from "@refinedev/simple-rest";
-import { App as AntdApp } from "antd";
-import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
-import { Header } from "./components/header";
-import { ColorModeContextProvider } from "./contexts/color-mode";
-import {
-  BlogPostCreate,
-  BlogPostEdit,
-  BlogPostList,
-  BlogPostShow,
-} from "./pages/blog-posts";
-import {
-  CategoryCreate,
-  CategoryEdit,
-  CategoryList,
-  CategoryShow,
-} from "./pages/categories";
-
-function App() {
-  return (
-    <BrowserRouter>
-      <GitHubBanner />
-      <RefineKbarProvider>
-        <ColorModeContextProvider>
-          <AntdApp>
-            <DevtoolsProvider>
-              <Refine
-                dataProvider={dataProvider("https://api.fake-rest.refine.dev")}
-                notificationProvider={useNotificationProvider}
-                routerProvider={routerBindings}
+const App: React.FC = () => {
+    return (
+        <BrowserRouter>
+            <Refine
+                dataProvider={dataProvider} // Usa el dataProvider que creaste
+                notificationProvider={notificationProvider}
+                Layout={Layout}
+                Sider={CustomSider} // Incluye el Sider personalizado
                 resources={[
-                  {
-                    name: "blog_posts",
-                    list: "/blog-posts",
-                    create: "/blog-posts/create",
-                    edit: "/blog-posts/edit/:id",
-                    show: "/blog-posts/show/:id",
-                    meta: {
-                      canDelete: true,
+                    {
+                        name: "dashboard",
+                        list: Dashboard,
+                        options: { label: "Dashboard" },
                     },
-                  },
-                  {
-                    name: "categories",
-                    list: "/categories",
-                    create: "/categories/create",
-                    edit: "/categories/edit/:id",
-                    show: "/categories/show/:id",
-                    meta: {
-                      canDelete: true,
+                    {
+                        name: "clientes_devoluciones", 
+                        list: ClientesList,
+                        create: ClientesCreate,
+                        edit: ClientesEdit,
                     },
-                  },
+                    {
+                        name: "piezas_devoluciones",
+                        list: PiezasList,
+                        create: PiezasCreate,
+                        edit: PiezasEdit,
+                    },
+                    {
+                        name: "sucursales",
+                        list: SucursalesList,
+                        create: SucursalesCreate,
+                        edit: SucursalesEdit,
+                    },
+                    {
+                        name: "tecnicos_devoluciones",
+                        list: TecnicosList,
+                        create: TecnicosCreate,
+                        edit: TecnicosEdit,
+                    },
                 ]}
-                options={{
-                  syncWithLocation: true,
-                  warnWhenUnsavedChanges: true,
-                  useNewQueryKeys: true,
-                  projectId: "HdqUMy-VICFOT-cqFwgy",
-                }}
-              >
-                <Routes>
-                  <Route
-                    element={
-                      <ThemedLayoutV2
-                        Header={() => <Header sticky />}
-                        Sider={(props) => <ThemedSiderV2 {...props} fixed />}
-                      >
-                        <Outlet />
-                      </ThemedLayoutV2>
-                    }
-                  >
-                    <Route
-                      index
-                      element={<NavigateToResource resource="blog_posts" />}
-                    />
-                    <Route path="/blog-posts">
-                      <Route index element={<BlogPostList />} />
-                      <Route path="create" element={<BlogPostCreate />} />
-                      <Route path="edit/:id" element={<BlogPostEdit />} />
-                      <Route path="show/:id" element={<BlogPostShow />} />
-                    </Route>
-                    <Route path="/categories">
-                      <Route index element={<CategoryList />} />
-                      <Route path="create" element={<CategoryCreate />} />
-                      <Route path="edit/:id" element={<CategoryEdit />} />
-                      <Route path="show/:id" element={<CategoryShow />} />
-                    </Route>
-                    <Route path="*" element={<ErrorComponent />} />
-                  </Route>
-                </Routes>
-
-                <RefineKbar />
-                <UnsavedChangesNotifier />
-                <DocumentTitleHandler />
-              </Refine>
-              <DevtoolsPanel />
-            </DevtoolsProvider>
-          </AntdApp>
-        </ColorModeContextProvider>
-      </RefineKbarProvider>
-    </BrowserRouter>
-  );
-}
+                routerProvider={routerProvider}
+            />
+        </BrowserRouter>
+    );
+};
 
 export default App;
