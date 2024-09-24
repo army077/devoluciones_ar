@@ -8,8 +8,10 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Build output (except dist/, as we want to upload it)
+!dist/
+
 node_modules
-dist
 dist-ssr
 \*.local
 
