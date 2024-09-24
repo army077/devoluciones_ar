@@ -7,12 +7,13 @@ export const PiezasList: React.FC = () => {
     return (
         <List>
             <Table {...tableProps} rowKey="id">
-                <Table.Column title="Código" dataIndex="codigo" />
+                <Table.Column title="Ticket" dataIndex="codigo" />
                 <Table.Column title="Descripción" dataIndex="descripcion" />
+                <Table.Column title="Numero de Serie" dataIndex="numero_serie" />
                 <Table.Column title="Estado" dataIndex="estado" />
                 <Table.Column title="Ubicación Actual" dataIndex="ubicacion_actual" />
-                <Table.Column title="Fecha de Salida" dataIndex="fecha_salida" />
                 <Table.Column title="Fecha de Entrada" dataIndex="fecha_entrada" />
+                <Table.Column title="Fecha de Salida" dataIndex="fecha_salida" />
 
                 {/* Mostrar el nombre del cliente */}
                 <Table.Column

@@ -57,10 +57,13 @@ export const PiezasCreate: React.FC = () => {
     return (
         <Create saveButtonProps={saveButtonProps}>
             <Form {...formProps} layout="vertical">
-                <Form.Item label="Código" name="codigo" rules={[{ required: true }]}>
+                <Form.Item label="Ticket" name="codigo" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
                 <Form.Item label="Descripción" name="descripcion" rules={[{ required: true }]}>
+                    <Input />
+                </Form.Item>
+                <Form.Item label="Numero de Serie" name="numero_serie" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
                 <Form.Item label="Estado" name="estado" rules={[{ required: true }]}>
@@ -133,11 +136,21 @@ export const PiezasCreate: React.FC = () => {
                         ]}
                     />
                 </Form.Item>
-                <Form.Item label="Fecha de Salida" name="fecha_salida" rules={[{ required: true }]}>
-                    <Input type="date" />
-                </Form.Item>
                 <Form.Item label="Fecha de Entrada" name="fecha_entrada">
                     <Input type="date" />
+                </Form.Item>
+                <Form.Item label="Tipo de Servicio" name="tipo_servicio" rules={[{ required: true }]}>
+                    <Select
+                        options={[
+                            { label: "Servicio Pagado", value: "Servicio Pagado" },
+                            { label: "Garantías", value: "Garantías" },
+                            { label: "Por Definir", value: "Por Definir" },
+                            { label: "Interno", value: "Interno" },
+                        ]}
+                    />
+                </Form.Item>
+                <Form.Item label="Descripción del Problema" name="descripcion_problema" rules={[{ required: true }]}>
+                    <Input.TextArea rows={4} />
                 </Form.Item>
             </Form>
         </Create>

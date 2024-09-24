@@ -28,12 +28,14 @@ export const dataProvider: DataProvider = {
     },
 
     create: async ({ resource, variables }) => {
+        console.log(variables);
         try {
             const response = await axios.post(`${API_URL}/${resource}`, variables);
             return {
                 data: response.data,
             };
         } catch (error) {
+            console.log(error);
             throw new Error("Error al crear el recurso");
         }
     },

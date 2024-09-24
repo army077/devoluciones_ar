@@ -64,10 +64,13 @@ export const PiezasEdit: React.FC = () => {
     return (
         <Edit saveButtonProps={saveButtonProps}>
             <Form {...formProps} layout="vertical">
-                <Form.Item label="Código" name="codigo" initialValue={piezaData?.codigo} rules={[{ required: true }]}>
+                <Form.Item label="Ticket" name="codigo" initialValue={piezaData?.codigo} rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
                 <Form.Item label="Descripción" name="descripcion" initialValue={piezaData?.descripcion} rules={[{ required: true }]}>
+                    <Input />
+                </Form.Item>
+                <Form.Item label="Numero de Serie" name="numero_serie" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
                 <Form.Item label="Estado" name="estado" initialValue={piezaData?.estado} rules={[{ required: true }]}>
@@ -140,11 +143,36 @@ export const PiezasEdit: React.FC = () => {
                         ]}
                     />
                 </Form.Item>
+                <Form.Item label="Fecha de Entrada" name="fecha_entrada" initialValue={piezaData?.fecha_entrada}>
+                    <Input type="date" />
+                </Form.Item>
+                <Form.Item label="Tipo de Servicio" name="tipo_servicio" rules={[{ required: true }]}>
+                    <Select
+                        options={[
+                            { label: "Servicio Pagado", value: "Servicio Pagado" },
+                            { label: "Garantías", value: "Garantías" },
+                            { label: "Por Definir", value: "Por Definir" },
+                            { label: "Interno", value: "Interno" },
+                        ]}
+                    />
+                </Form.Item>
+                <Form.Item label="Descripción del Problema" name="descripcion_problema" rules={[{ required: true }]}>
+                    <Input.TextArea rows={4} />
+                </Form.Item>
+                <Form.Item label="Fecha de Cotización" name="fecha_cotizacion" initialValue={piezaData?.fecha_cotizacion} rules={[{ required: true }]}>
+                    <Input type="date" />
+                </Form.Item>
+                <Form.Item label="Fecha de Confirmación" name="fecha_confirmación" initialValue={piezaData?.fecha_confirmación} rules={[{ required: true }]}>
+                    <Input type="date" />
+                </Form.Item>
+                <Form.Item label="Fecha de Reparación" name="fecha_reparacion" initialValue={piezaData?.fecha_reparacion} rules={[{ required: true }]}>
+                    <Input type="date" />
+                </Form.Item>
                 <Form.Item label="Fecha de Salida" name="fecha_salida" initialValue={piezaData?.fecha_salida} rules={[{ required: true }]}>
                     <Input type="date" />
                 </Form.Item>
-                <Form.Item label="Fecha de Entrada" name="fecha_entrada" initialValue={piezaData?.fecha_entrada}>
-                    <Input type="date" />
+                <Form.Item label="Numero de Sello" name="numero_sello" initialValue={piezaData?.numero_sello} rules={[{ required: true }]}>
+                    <Input />
                 </Form.Item>
             </Form>
         </Edit>
