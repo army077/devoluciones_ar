@@ -1,47 +1,42 @@
-import React from "react";
-import { Create, Form, Input, useForm, InputNumber } from "@pankod/refine-antd";
-
-// Obtener el mes actual, anterior y siguiente
-const getCurrentMonthRange = () => {
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth(); // Mes actual (0 - Enero, 11 - Diciembre)
-
-    // Mapear el número del mes al nombre
-    const monthNames = [
-        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-        "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-    ];
-
-    const previousMonth = (currentMonth - 1 + 12) % 12; // Mes anterior
-    const nextMonth = (currentMonth + 1) % 12;          // Mes siguiente
-
-    return {
-        currentMonthName: monthNames[currentMonth],
-        previousMonthName: monthNames[previousMonth],
-        nextMonthName: monthNames[nextMonth],
-        currentMonthKey: monthNames[currentMonth].toLowerCase(),
-        previousMonthKey: monthNames[previousMonth].toLowerCase(),
-        nextMonthKey: monthNames[nextMonth].toLowerCase(),
-    };
-};
+import React, { useEffect, useState } from "react";
+import { Create, Form, Input, useForm, InputNumber, Select } from "@pankod/refine-antd";
+import axios from "axios";
 
 export const ElementosCreate: React.FC = () => {
     const { formProps, saveButtonProps } = useForm();
+    const [clasificaciones, setClasificaciones] = useState([]); // Estado para almacenar las clasificaciones
 
-    // Obtener nombres de los meses actual, anterior y siguiente
-    const {
-        currentMonthName, previousMonthName, nextMonthName,
-        currentMonthKey, previousMonthKey, nextMonthKey
-    } = getCurrentMonthRange();
+    // Hacer la solicitud a la API para obtener las clasificaciones
+    useEffect(() => {
+        const fetchClasificaciones = async () => {
+            try {
+                const response = await axios.get('https://desarrollotecnologicoar.com/api1/clasificacion_elementos');
+                // Filtramos solo las clasificaciones que estén activas
+                const data = response.data.filter((item: any) => item.activo);
+                setClasificaciones(data); // Guardar las clasificaciones en el estado
+            } catch (error) {
+                console.error("Error al obtener las clasificaciones:", error);
+            }
+        };
+
+        fetchClasificaciones();
+    }, []); // Ejecutar solo al montar el componente
 
     return (
         <Create saveButtonProps={saveButtonProps}>
             <Form {...formProps} layout="vertical">
+                {/* Mostrar las clasificaciones en un Select */}
                 <Form.Item label="Clasificación" name="clasificacion" rules={[{ required: true }]}>
-                    <Input />
+                    <Select>
+                        {clasificaciones.map((item: any) => (
+                            <Select.Option key={item.id} value={item.clasificacion}>
+                                {item.clasificacion}
+                            </Select.Option>
+                        ))}
+                    </Select>
                 </Form.Item>
 
-                <Form.Item label="Descripcion" name="descripcion" rules={[{ required: true }]}>
+                <Form.Item label="Descripción" name="descripcion" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
 
@@ -60,8 +55,6 @@ export const ElementosCreate: React.FC = () => {
                 <Form.Item label="TSP" name="tsp" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
-
-            
             </Form>
         </Create>
     );

@@ -1,0 +1,30 @@
+
+body.dark-mode {
+    background-color: #1f1f1f;
+    color: #ffffff;
+}
+
+.ant-layout, .ant-layout-content {
+    transition: background-color 0.3s, color 0.3s;
+}
+/* Estilos generales para modo oscuro */
+body.dark-mode {
+    background-color: #1f1f1f;
+    color: #ffffff;
+}
+
+/* Estilos específicos para el gráfico */
+body.dark-mode .recharts-text {
+    fill: #ffffff; /* Cambia el color de las etiquetas y texto */
+}
+
+body.dark-mode .recharts-tooltip-wrapper {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #555555;
+}
+
+body.dark-mode .recharts-legend-item-text {
+    fill: #ffffff; /* Cambia el color de los elementos de la leyenda */
+}
+

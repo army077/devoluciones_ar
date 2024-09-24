@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import axios from "axios";
 import { Spin } from "@pankod/refine-antd";
+import { useNavigate } from "react-router-dom";
 
 // Definir el tipo de los datos de estado
 interface PiezaEstado {
@@ -15,6 +16,7 @@ const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 export const PiezasPorEstado: React.FC = () => {
     const [data, setData] = useState<PiezaEstado[]>([]);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate(); // Para redirigir a otra página
 
     useEffect(() => {
         const fetchData = async () => {
@@ -40,6 +42,12 @@ export const PiezasPorEstado: React.FC = () => {
         fetchData();
     }, []);
 
+    // Manejar el clic en una sección del gráfico
+    const handlePieClick = (data: PiezaEstado) => {
+        // Redirigir a la página de la tabla, pasando el estado seleccionado en la URL
+        navigate(`/piezas?categoria=${data.name.toLowerCase()}`);
+    };
+
     if (loading) return <Spin size="large" />;
 
     return (
@@ -54,6 +62,7 @@ export const PiezasPorEstado: React.FC = () => {
                     cy="50%"
                     outerRadius={150}
                     fill="#8884d8"
+                    onClick={(_, index) => handlePieClick(data[index])} // Captura el clic en la sección
                 >
                     {data.map((_, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />

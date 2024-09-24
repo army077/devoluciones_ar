@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Edit, Form, Input, useForm, Select } from "@pankod/refine-antd";
+import { Edit, Form, Input, Select, useForm } from "@pankod/refine-antd";
 import axios from "axios";
 
 // Define los tipos para las entidades
@@ -23,6 +23,11 @@ interface Taller {
     nombre: string;
 }
 
+interface Elemento {
+    id: number;
+    descripcion: string;
+}
+
 export const PiezasEdit: React.FC = () => {
     const { formProps, saveButtonProps, queryResult } = useForm();
     const API_URL = "https://www.desarrollotecnologicoar.com/api1";
@@ -31,6 +36,7 @@ export const PiezasEdit: React.FC = () => {
     const [tecnicos, setTecnicos] = useState<Tecnico[]>([]);
     const [talleres, setTalleres] = useState<Taller[]>([]);
     const [sucursales, setSucursales] = useState<Sucursal[]>([]);
+    const [elementos, setElementos] = useState<Elemento[]>([]); // Estado para almacenar las descripciones de elementos
 
     const piezaData = queryResult?.data?.data; // Datos actuales de la pieza
 
@@ -42,6 +48,7 @@ export const PiezasEdit: React.FC = () => {
                 const tecnicosResponse = await axios.get(`${API_URL}/tecnicos_devoluciones`);
                 const talleresResponse = await axios.get(`${API_URL}/talleres`);
                 const sucursalesResponse = await axios.get(`${API_URL}/sucursales`);
+                const elementosResponse = await axios.get(`${API_URL}/elementos`); // Obtener los elementos
 
                 setClientes(clientesResponse.data);
                 
@@ -53,6 +60,7 @@ export const PiezasEdit: React.FC = () => {
 
                 setTalleres(talleresResponse.data);
                 setSucursales(sucursalesResponse.data);
+                setElementos(elementosResponse.data); // Guardar las descripciones de los elementos
             } catch (error) {
                 console.error("Error al cargar los datos", error);
             }
@@ -67,8 +75,16 @@ export const PiezasEdit: React.FC = () => {
                 <Form.Item label="Ticket" name="codigo" initialValue={piezaData?.codigo} rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
+
+                {/* Mostrar las descripciones de elementos en un Select */}
                 <Form.Item label="Descripción" name="descripcion" initialValue={piezaData?.descripcion} rules={[{ required: true }]}>
-                    <Input />
+                    <Select showSearch placeholder="Seleccione una descripción">
+                        {elementos.map((elemento: Elemento) => (
+                            <Select.Option key={elemento.id} value={elemento.descripcion}>
+                                {elemento.descripcion}
+                            </Select.Option>
+                        ))}
+                    </Select>
                 </Form.Item>
                 <Form.Item label="Numero de Serie" name="numero_serie" rules={[{ required: true }]}>
                     <Input />

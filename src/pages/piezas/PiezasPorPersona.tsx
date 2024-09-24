@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from "recharts";
 import axios from "axios";
-import { Spin } from "@pankod/refine-antd";
+import { List, Spin } from "@pankod/refine-antd";
 
 // Definir el tipo de los datos de estado
 interface PiezaPersona {
@@ -9,7 +9,7 @@ interface PiezaPersona {
     value: number;
 }
 
-export const PiezasPorPersona: React.FC = () => {
+export const PiezasPorPersonaList: React.FC = () => {
     const [data, setData] = useState<PiezaPersona[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -40,8 +40,7 @@ export const PiezasPorPersona: React.FC = () => {
     if (loading) return <Spin size="large" />;
 
     return (
-        <div>
-            <h3>Piezas por Persona/Entidad</h3>
+        <List title="Piezas por Persona/Entidad">
             <BarChart width={500} height={300} data={data}>
                 <XAxis dataKey="name" />
                 <YAxis />
@@ -49,6 +48,6 @@ export const PiezasPorPersona: React.FC = () => {
                 <Legend />
                 <Bar dataKey="value" fill="#8884d8" />
             </BarChart>
-        </div>
+        </List>
     );
 };
