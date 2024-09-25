@@ -80,17 +80,14 @@ const App: React.FC = () => {
                                         create: ElementosCreate,
                                         edit: ElementosEdit,
                                     },
-                                    {
-                                        name: 'PiezasTable',
-                                        list: PiezasPorEstado
-                                    },
+                                
                                 ]}
                                 routerProvider={routerProvider}
                             />
                         }
                     />
                     {/* Ruta para la tabla filtrada */}
-                    <Route path="/piezas" element={<PiezasTable />} /> {/* La ruta de tabla filtrada */}
+                    <Route path="/piezas" element={<PiezasTable selectedEstado={null} />} /> {/* La ruta de tabla filtrada */}
                 </Routes>
             </ThemeProvider>
         </BrowserRouter>
