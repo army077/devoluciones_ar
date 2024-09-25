@@ -17,10 +17,16 @@ const COLORS = [
     "#9966FF", "#FF9F40", "#FFCD56", "#C9CBCF"
 ];
 
-export const PiezasPorEstado: React.FC = () => {
+// Definir las props del componente
+interface PiezasPorEstadoProps {
+    onSelectEstado: (estado: string) => void; // Función para seleccionar un estado
+}
+
+
+export const PiezasPorEstado: React.FC<PiezasPorEstadoProps> = ({onSelectEstado}) => {
     const [data, setData] = useState<PiezaEstado[]>([]);
     const [loading, setLoading] = useState(true);
-    const navigate = useNavigate(); // Para redirigir a otra página
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -48,8 +54,7 @@ export const PiezasPorEstado: React.FC = () => {
 
     // Manejar el clic en una sección del gráfico
     const handlePieClick = (data: PiezaEstado) => {
-        // Redirigir a la página de la tabla, pasando el estado seleccionado en la URL
-        navigate(`/piezas?categoria=${data.name.toLowerCase()}`);
+        onSelectEstado(data.name); // Llama a la función del padre con el estado seleccionado
     };
 
     if (loading) return <Spin size="large" />;
