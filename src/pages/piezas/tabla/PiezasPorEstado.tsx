@@ -10,8 +10,12 @@ interface PiezaEstado {
     value: number;
 }
 
-// Colores para cada estado
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+// Colores extendidos para cada estado
+const COLORS = [
+    "#0088FE", "#00C49F", "#FFBB28", "#FF8042",
+    "#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0",
+    "#9966FF", "#FF9F40", "#FFCD56", "#C9CBCF"
+];
 
 export const PiezasPorEstado: React.FC = () => {
     const [data, setData] = useState<PiezaEstado[]>([]);
@@ -23,9 +27,9 @@ export const PiezasPorEstado: React.FC = () => {
             try {
                 // Llamada directa a la API usando axios
                 const response = await axios.get('https://www.desarrollotecnologicoar.com/api1/piezas_devoluciones');
-                
+
                 // Filtrar y contar piezas por estado
-                const estados = ["prestamo", "reparacion", "instalada", "devuelta"];
+                const estados = ["para envio", "en proceso reparacion", "en diagnostico", "por diagnosticar", "cambio", "recuperado", "valoracion", "reparada en espera pago", "en servicio con proveedor", "no autoriza reparacion", "no tuvo reparacion", "scrap"];
                 const piezasPorEstado = estados.map((estado) => ({
                     name: estado.charAt(0).toUpperCase() + estado.slice(1),
                     value: response.data.filter((pieza: any) => pieza.estado === estado).length,
@@ -60,7 +64,7 @@ export const PiezasPorEstado: React.FC = () => {
                     nameKey="name"
                     cx="50%"
                     cy="50%"
-                    outerRadius={150}
+                    outerRadius={140}
                     fill="#8884d8"
                     onClick={(_, index) => handlePieClick(data[index])} // Captura el clic en la sección
                 >

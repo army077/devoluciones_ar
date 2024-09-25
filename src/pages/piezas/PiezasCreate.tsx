@@ -86,17 +86,17 @@ export const PiezasCreate: React.FC = () => {
                     <Select
                         options={[
                             { label: "Enviado", value: "enviado" },
-                            { label: "Para envío", value: "para_envio" },
-                            { label: "En proceso de reparación", value: "en_proceso_reparacion" },
-                            { label: "En Diagnostico", value: "en_diagnostico" },
-                            { label: "Por Diagnosticar", value: "por_diagnosticar" },
+                            { label: "Para envío", value: "para envio" },
+                            { label: "En proceso de reparación", value: "en proceso reparacion" },
+                            { label: "En Diagnostico", value: "en diagnostico" },
+                            { label: "Por Diagnosticar", value: "por diagnosticar" },
                             { label: "Cambio", value: "cambio" },
                             { label: "Recuperado", value: "recuperado" },
                             { label: "Valoración", value: "valoracion" },
-                            { label: "Reparada y en espera de pago", value: "reparada_en_espera_pago" },
-                            { label: "En servicio con proveedor", value: "en_servicio_con_proveedor" },
-                            { label: "No se autoriza la reparación", value: "no_autoriza_reparacion" },
-                            { label: "No tuvo reparación", value: "no_tuvo_reparacion" },
+                            { label: "Reparada y en espera de pago", value: "reparada en espera_pago" },
+                            { label: "En servicio con proveedor", value: "en servicio con proveedor" },
+                            { label: "No se autoriza la reparación", value: "no autoriza reparacion" },
+                            { label: "No tuvo reparación", value: "no tuvo reparacion" },
                             { label: "Scrap", value: "scrap" }
                         ]}
                     />
