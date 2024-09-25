@@ -10,13 +10,15 @@ export const Dashboard: React.FC = () => {
         <div style={{ padding: 24 }}>
             <h2>Dashboard</h2>
             <Row gutter={[16, 16]}>
-                <Col xs={24} md={12}>
-                    <Card title="Piezas por Estado">
+                {/* Columna 1: Piezas por Estado */}
+                <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                    <Card title="Piezas por Estado" style={{ height: '650px' }}>
                         <PiezasPorEstado />
                     </Card>
                 </Col>
-                <Col xs={24} md={12}>
-                    <Card title="Piezas por Persona">
+                {/* Columna 2: Piezas por Persona */}
+                <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                    <Card title="Piezas por Persona" style={{ height: '650px' }}>
                         <PiezasPorPersonaList />
                     </Card>
                 </Col>
