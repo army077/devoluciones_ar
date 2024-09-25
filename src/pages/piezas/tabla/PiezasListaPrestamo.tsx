@@ -1,29 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Card, Layout, Row, Col, Spin, Button } from 'antd';
+import { Table, Card, Layout, Row, Col, Spin } from 'antd';
 import axios from 'axios';
 
 interface PiezasTableProps {
     selectedEstado: string | null; // Prop para el estado seleccionado
+    selectedPersona: string | null; // Prop para la persona seleccionada
 }
 
-const PiezasTable: React.FC<PiezasTableProps> = ({ selectedEstado }) => {
+const PiezasTable: React.FC<PiezasTableProps> = ({ selectedEstado, selectedPersona }) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Llamada a la API para obtener todas las piezas, independientemente del estado
         const fetchData = async () => {
             try {
                 setLoading(true);
                 const response = await axios.get('https://www.desarrollotecnologicoar.com/api1/piezas_devoluciones');
-                
-                // Si hay un estado seleccionado, filtra los datos. Si no, muestra todo.
+
+                let filteredData = response.data;
+
+                // Filtrar por estado si se ha seleccionado uno
                 if (selectedEstado) {
-                    const filteredData = response.data.filter((pieza: any) => pieza.estado === selectedEstado.toLowerCase());
-                    setData(filteredData);
-                } else {
-                    setData(response.data); // Si no hay estado, muestra todos los datos
+                    filteredData = filteredData.filter((pieza: any) => pieza.estado === selectedEstado.toLowerCase());
                 }
+
+                // Filtrar por persona si se ha seleccionado una
+                if (selectedPersona) {
+                    filteredData = filteredData.filter((pieza: any) => pieza.ubicacion_actual === selectedPersona.toLowerCase());
+                }
+
+                setData(filteredData);
             } catch (error) {
                 console.error("Error al obtener los datos de la API", error);
             } finally {
@@ -32,7 +38,7 @@ const PiezasTable: React.FC<PiezasTableProps> = ({ selectedEstado }) => {
         };
 
         fetchData();
-    }, [selectedEstado]);
+    }, [selectedEstado, selectedPersona]); // Ejecuta el efecto cuando cambia alguno de los filtros
 
     const columns = [
         { title: 'Cliente', dataIndex: 'cliente_nombre', key: 'cliente_nombre', render: (text: any) => text || 'No hay técnico' },
