@@ -87,7 +87,7 @@ const App: React.FC = () => {
                         }
                     />
                     {/* Ruta para la tabla filtrada */}
-                    <Route path="/piezas" element={<PiezasTable selectedEstado={null} />} /> {/* La ruta de tabla filtrada */}
+                    <Route path="/piezas" element={<PiezasTable />} /> {/* La ruta de tabla filtrada */}
                 </Routes>
             </ThemeProvider>
         </BrowserRouter>
