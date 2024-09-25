@@ -24,6 +24,7 @@ interface PiezasPorEstadoProps {
 export const PiezasPorEstado: React.FC<PiezasPorEstadoProps> = ({onSelectEstado}) => {
     const [data, setData] = useState<PiezaEstado[]>([]);
     const [loading, setLoading] = useState(true);
+    const [chartSize, setChartSize] = useState({ width: 300, height: 400 }); // Inicia con tamaño pequeño
 
 
     useEffect(() => {
