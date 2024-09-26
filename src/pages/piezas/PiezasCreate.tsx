@@ -69,6 +69,10 @@ export const PiezasCreate: React.FC = () => {
                     <Input />
                 </Form.Item>
 
+                <Form.Item label="Link Zoho" name="link_zoho" rules={[{ required: true }]}>
+                    <Input />
+                </Form.Item>
+
                 {/* Mostrar las descripciones de elementos en un Select */}
                 <Form.Item label="Descripción" name="descripcion" rules={[{ required: true }]}>
                     <Select showSearch placeholder="Seleccione una descripción">

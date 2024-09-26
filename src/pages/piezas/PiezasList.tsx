@@ -37,7 +37,16 @@ export const PiezasList: React.FC = () => {
                 dataSource={filteredData} // Usar los datos filtrados
                 rowKey="id"
             >
-                <Table.Column title="Ticket" dataIndex="codigo" />
+                {/* Columna "Ticket" con link_zoho */}
+                <Table.Column
+                    title="Ticket"
+                    dataIndex="codigo"
+                    render={(codigo, record) => (
+                        <a href={record.link_zoho} target="_blank" rel="noopener noreferrer">
+                            {codigo}
+                        </a>
+                    )}
+                />
                 <Table.Column title="Descripción" dataIndex="descripcion" />
                 <Table.Column title="Numero de Serie" dataIndex="numero_serie" />
                 <Table.Column title="Estado" dataIndex="estado" />
@@ -75,7 +84,7 @@ export const PiezasList: React.FC = () => {
 
                 <Table.Column
                     title="Acciones"
-                    render={(_, record) => (
+                    render={(_, record) => (+
                         <>
                             <EditButton recordItemId={record.id} style={{ marginRight: 20 }} />
                             <DeleteButton recordItemId={record.id} />

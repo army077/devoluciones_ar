@@ -3,18 +3,17 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from "recharts";
 import axios from "axios";
 import { List, Spin } from "@pankod/refine-antd";
 
-// Definir el tipo de los datos de estado
 interface PiezaPersona {
     name: string;
     value: number;
 }
 
-// Definir las props del componente
 interface PiezasPorPersonaListProps {
     onSelectPersona: (persona: string) => void; // Función para seleccionar una persona
+    dates: [string | null, string | null]; // Rango de fechas recibido desde el componente padre
 }
 
-export const PiezasPorPersonaList: React.FC<PiezasPorPersonaListProps> = ({onSelectPersona}) => {
+export const PiezasPorPersonaList: React.FC<PiezasPorPersonaListProps> = ({ onSelectPersona, dates }) => {
     const [data, setData] = useState<PiezaPersona[]>([]);
     const [loading, setLoading] = useState(true);
     const [chartSize, setChartSize] = useState({ width: 400, height: 300 });
@@ -22,8 +21,14 @@ export const PiezasPorPersonaList: React.FC<PiezasPorPersonaListProps> = ({onSel
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Llamada directa a la API usando axios
-                const response = await axios.get('https://www.desarrollotecnologicoar.com/api1/piezas_devoluciones');
+                let url = 'https://www.desarrollotecnologicoar.com/api1/piezas_devoluciones';
+                const [startDate, endDate] = dates;
+
+                if (startDate && endDate) {
+                    url += `?startDate=${startDate}&endDate=${endDate}`;
+                }
+
+                const response = await axios.get(url);
                 const entidades = ["cliente", "tecnico", "sucursal", "taller"];
                 const piezasPorPersona = entidades.map((entidad) => ({
                     name: entidad.charAt(0).toUpperCase() + entidad.slice(1),
@@ -37,21 +42,13 @@ export const PiezasPorPersonaList: React.FC<PiezasPorPersonaListProps> = ({onSel
                 setLoading(false);
             }
         };
-        const handleResize = () => {
-            const width = window.innerWidth < 768 ? 300 : 400;
-            const height = window.innerWidth < 768 ? 200 : 300;
-            setChartSize({ width, height });
-        };
 
         fetchData();
-    }, []);
+    }, [dates]); // Dependencias para actualizar los datos cuando cambien las fechas
 
-        // Manejar el clic en una barra del gráfico
     const handleBarClick = (data: PiezaPersona) => {
-        onSelectPersona(data.name); // Llama a la función del padre con la persona seleccionada
+        onSelectPersona(data.name);
     };
-
-    
 
     if (loading) return <Spin size="large" />;
 

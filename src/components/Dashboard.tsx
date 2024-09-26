@@ -1,16 +1,21 @@
 import React, { useState } from "react";
-import { Row, Col, Card } from "antd";
+import { Row, Col, Card, DatePicker } from "antd";
 import { PiezasPorEstado } from "../pages/piezas/tabla/PiezasPorEstado";
 import { PiezasPorPersonaList } from "../pages/piezas/PiezasPorPersona";
 import PiezasTable from "../pages/piezas/tabla/PiezasListaPrestamo";
 import { useTheme } from "../components/ThemeContext";
 
+const { RangePicker } = DatePicker;
+
 export const Dashboard: React.FC = () => {
     const { darkMode, toggleDarkMode } = useTheme();
-    
+
     // Estados para almacenar las selecciones de los gráficos
     const [selectedEstado, setSelectedEstado] = useState<string | null>(null);
     const [selectedPersona, setSelectedPersona] = useState<string | null>(null);
+
+    // Estado para manejar las fechas seleccionadas
+    const [dates, setDates] = useState<[string | null, string | null]>([null, null]);
 
     // Función para generar el título dinámico basado en los filtros aplicados
     const getTituloPiezas = () => {
@@ -25,18 +30,26 @@ export const Dashboard: React.FC = () => {
         }
     };
 
+    const onDateChange = (dates: any, dateStrings: [string, string]) => {
+        setDates([dateStrings[0], dateStrings[1]]);
+    };
+
     return (
         <div style={{ padding: 24 }}>
             <h2>Dashboard</h2>
+            {/* Agregar el selector de rango de fechas */}
+            <div style={{ marginBottom: 16 }}>
+                <RangePicker onChange={onDateChange} />
+            </div>
             <Row gutter={[16, 16]}>
                 <Col xs={24} md={12}>
                     <Card title="Piezas por Estado">
-                        <PiezasPorEstado onSelectEstado={setSelectedEstado} />
+                        <PiezasPorEstado onSelectEstado={setSelectedEstado} dates={dates} />
                     </Card>
                 </Col>
                 <Col xs={24} md={12}>
                     <Card title="Piezas por Persona">
-                        <PiezasPorPersonaList onSelectPersona={setSelectedPersona} />
+                        <PiezasPorPersonaList onSelectPersona={setSelectedPersona} dates={dates} />
                     </Card>
                 </Col>
                 <Col xs={24} md={24}>
