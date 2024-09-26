@@ -84,7 +84,7 @@ export const PiezasList: React.FC = () => {
 
                 <Table.Column
                     title="Acciones"
-                    render={(_, record) => (+
+                    render={(_, record) => (
                         <>
                             <EditButton recordItemId={record.id} style={{ marginRight: 20 }} />
                             <DeleteButton recordItemId={record.id} />

@@ -92,10 +92,19 @@ export const PiezasEdit: React.FC = () => {
                 <Form.Item label="Estado" name="estado" initialValue={piezaData?.estado} rules={[{ required: true }]}>
                     <Select
                         options={[
-                            { label: "Prestamo", value: "prestamo" },
-                            { label: "En reparación", value: "reparacion" },
-                            { label: "Instalada", value: "instalada" },
-                            { label: "Devuelta", value: "devuelta" },
+                            { label: "Enviado", value: "enviado" },
+                            { label: "Para envío", value: "para envio" },
+                            { label: "En proceso de reparación", value: "en proceso reparacion" },
+                            { label: "En Diagnostico", value: "en diagnostico" },
+                            { label: "Por Diagnosticar", value: "por diagnosticar" },
+                            { label: "Cambio", value: "cambio" },
+                            { label: "Recuperado", value: "recuperado" },
+                            { label: "Valoración", value: "valoracion" },
+                            { label: "Reparada y en espera de pago", value: "reparada en espera_pago" },
+                            { label: "En servicio con proveedor", value: "en servicio con proveedor" },
+                            { label: "No se autoriza la reparación", value: "no autoriza reparacion" },
+                            { label: "No tuvo reparación", value: "no tuvo reparacion" },
+                            { label: "Scrap", value: "scrap" }
                         ]}
                     />
                 </Form.Item>
