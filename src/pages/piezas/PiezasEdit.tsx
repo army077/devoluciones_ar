@@ -165,6 +165,7 @@ export const PiezasEdit: React.FC = () => {
                             { label: "Técnico", value: "tecnico" },
                             { label: "Almacén", value: "almacen" },
                             { label: "Taller", value: "taller" },
+                            { label: "Proveedor", value: "proveedor" },
                         ]}
                     />
                 </Form.Item>
