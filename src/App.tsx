@@ -29,6 +29,7 @@ import { ThemeProvider } from "./components/ThemeContext";
 import PiezasTable from "./pages/piezas/tabla/PiezasListaPrestamo"; // Importamos el componente para la tabla filtrada
 import './App.css';
 import { PiezasPorEstado } from "./pages/piezas/tabla/PiezasPorEstado";
+import PiezaDetalle from "./pages/piezas/DetallePiezas";
 
 const App: React.FC = () => {
     return (
@@ -86,7 +87,7 @@ const App: React.FC = () => {
                             />
                         }
                     />
-                    {/* Ruta para la tabla filtrada */}
+                     <Route path="/tickets/:id" element={<PiezaDetalle />} /> {/* La ruta de tabla filtrada */}
                   
                 </Routes>
             </ThemeProvider>

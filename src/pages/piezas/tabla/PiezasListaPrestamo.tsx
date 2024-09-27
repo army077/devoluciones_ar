@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Card, Layout, Row, Col, Spin } from 'antd';
+import { Table, Spin, Input } from 'antd';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+
+const { Search } = Input;
 
 interface PiezasTableProps {
     selectedEstado: string | null; // Prop para el estado seleccionado
@@ -10,6 +13,7 @@ interface PiezasTableProps {
 const PiezasTable: React.FC<PiezasTableProps> = ({ selectedEstado, selectedPersona }) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [search, setSearch] = useState(''); // Estado para el término de búsqueda
 
     useEffect(() => {
         const fetchData = async () => {
@@ -38,10 +42,26 @@ const PiezasTable: React.FC<PiezasTableProps> = ({ selectedEstado, selectedPerso
         };
 
         fetchData();
-    }, [selectedEstado, selectedPersona]); // Ejecuta el efecto cuando cambia alguno de los filtros
+    }, [selectedEstado, selectedPersona]);
+
+    // Filtrar los datos por el término de búsqueda (ticket)
+    const searchedData = data.filter((pieza: any) => 
+        pieza.codigo.toLowerCase().includes(search.toLowerCase())
+    );
 
     const columns = [
         { title: 'Cliente', dataIndex: 'cliente_nombre', key: 'cliente_nombre', render: (text: any) => text || 'No hay técnico' },
+
+        { 
+            title: 'Ticket', 
+            dataIndex: 'codigo', 
+            key: 'codigo',
+            render: (codigo: string, record: any) => (
+                <Link to={`/tickets/${record.id}`}>
+                    {codigo}
+                </Link>
+            )
+        },
         { title: 'Descripcion', dataIndex: 'descripcion', key: 'descripcion' },
         { title: 'Fecha de entrada', dataIndex: 'fecha_entrada', key: 'fecha_entrada' },
         { title: 'Ubicacion Actual', dataIndex: 'ubicacion_actual', key: 'ubicacion_actual' },
@@ -50,12 +70,23 @@ const PiezasTable: React.FC<PiezasTableProps> = ({ selectedEstado, selectedPerso
     if (loading) return <Spin size="large" />;
 
     return (
-        <Table 
-            columns={columns} 
-            dataSource={data} 
-            rowKey="id" 
-            pagination={{ pageSize: 5 }} 
-        />
+        <div>
+            {/* Barra de búsqueda */}
+            <Search 
+                placeholder="Buscar por ticket" 
+                value={search} 
+                onChange={(e) => setSearch(e.target.value)} // Actualiza el estado de búsqueda
+                style={{ marginBottom: 16 }} // Espacio entre la barra de búsqueda y la tabla
+            />
+
+            {/* Tabla con los datos filtrados */}
+            <Table 
+                columns={columns} 
+                dataSource={searchedData} // Usamos los datos filtrados por búsqueda
+                rowKey="id" 
+                pagination={{ pageSize: 5 }} 
+            />
+        </div>
     );
 };
 
