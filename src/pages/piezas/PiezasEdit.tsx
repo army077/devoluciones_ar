@@ -89,6 +89,9 @@ export const PiezasEdit: React.FC = () => {
                 <Form.Item label="Numero de Serie" name="numero_serie" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
+                <Form.Item label="Numero de Orden de Servicio" name="numero_orden_servicio" rules={[{ required: true }]}>
+                    <Input />
+                </Form.Item>
                 <Form.Item label="Estado" name="estado" initialValue={piezaData?.estado} rules={[{ required: true }]}>
                     <Select
                         options={[
@@ -165,6 +168,7 @@ export const PiezasEdit: React.FC = () => {
                             { label: "Técnico", value: "tecnico" },
                             { label: "Almacén", value: "almacen" },
                             { label: "Taller", value: "taller" },
+                            { label: "Proveedor", value: "proveedor" },
                         ]}
                     />
                 </Form.Item>

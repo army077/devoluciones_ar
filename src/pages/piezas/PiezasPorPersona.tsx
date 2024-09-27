@@ -29,11 +29,12 @@ export const PiezasPorPersonaList: React.FC<PiezasPorPersonaListProps> = ({ onSe
                 }
 
                 const response = await axios.get(url);
-                const entidades = ["cliente", "tecnico", "sucursal", "taller"];
+                const entidades = ["cliente", "tecnico", "sucursal", "taller", "proveedor"];
                 const piezasPorPersona = entidades.map((entidad) => ({
                     name: entidad.charAt(0).toUpperCase() + entidad.slice(1),
                     value: response.data.filter((pieza: any) => pieza.ubicacion_actual === entidad).length,
                 }));
+                console.log(piezasPorPersona);
 
                 setData(piezasPorPersona);
             } catch (error) {

@@ -13,6 +13,7 @@ export const PiezasList: React.FC = () => {
             item.codigo?.toLowerCase().includes(searchText.toLowerCase()) ||
             item.descripcion?.toLowerCase().includes(searchText.toLowerCase()) ||
             item.numero_serie?.toLowerCase().includes(searchText.toLowerCase()) ||
+            item.numero_orden_servicio?.toLowerCase().includes(searchText.toLowerCase()) ||
             item.estado?.toLowerCase().includes(searchText.toLowerCase()) ||
             item.ubicacion_actual?.toLowerCase().includes(searchText.toLowerCase()) ||
             item.cliente_nombre?.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -50,6 +51,7 @@ export const PiezasList: React.FC = () => {
                 <Table.Column title="Descripción" dataIndex="descripcion" />
                 <Table.Column title="Numero de Serie" dataIndex="numero_serie" />
                 <Table.Column title="Estado" dataIndex="estado" />
+                <Table.Column title="Num Orden Servicio" dataIndex="numero_orden_servicio" />
                 <Table.Column title="Ubicación Actual" dataIndex="ubicacion_actual" />
                 <Table.Column title="Fecha de Entrada" dataIndex="fecha_entrada" />
                 <Table.Column title="Fecha de Salida" dataIndex="fecha_salida" />
@@ -75,12 +77,13 @@ export const PiezasList: React.FC = () => {
                     render={(sucursal_nombre) => sucursal_nombre || "Ninguno"}
                 />
 
-                {/* Mostrar el nombre del taller */}
+                {/* Mostrar el nombre del taller 
                 <Table.Column
                     title="Taller"
                     dataIndex="taller_nombre"
                     render={(taller_nombre) => taller_nombre || "Ninguno"}
                 />
+                */}
 
                 <Table.Column
                     title="Acciones"
