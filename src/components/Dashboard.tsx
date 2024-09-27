@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Row, Col, Card, DatePicker } from "antd";
+import { Row, Col, Card, DatePicker, Button } from "antd";
 import { PiezasPorEstado } from "../pages/piezas/tabla/PiezasPorEstado";
 import { PiezasPorPersonaList } from "../pages/piezas/PiezasPorPersona";
 import PiezasTable from "../pages/piezas/tabla/PiezasListaPrestamo";
@@ -34,12 +34,23 @@ export const Dashboard: React.FC = () => {
         setDates([dateStrings[0], dateStrings[1]]);
     };
 
+    // Función para restablecer la página
+    const handleReset = () => {
+        window.location.reload();
+    };
+
     return (
         <div style={{ padding: 24 }}>
+
             <h2>Dashboard</h2>
             {/* Agregar el selector de rango de fechas */}
             <div style={{ marginBottom: 16 }}>
                 <RangePicker onChange={onDateChange} />
+            </div>
+            <div style={{ marginTop: 16 }}>
+                <Button type="primary" onClick={handleReset}>
+                    Restablecer
+                </Button>
             </div>
             <Row gutter={[16, 16]}>
                 <Col xs={24} md={12}>
@@ -55,10 +66,12 @@ export const Dashboard: React.FC = () => {
                 <Col xs={24} md={24}>
                     {/* Utiliza la función `getTituloPiezas` para generar el título dinámico */}
                     <Card title={getTituloPiezas()}>
-                        <PiezasTable selectedEstado={selectedEstado} selectedPersona={selectedPersona} />
+                        <PiezasTable selectedEstado={selectedEstado} selectedPersona={selectedPersona} dates={dates} />
                     </Card>
                 </Col>
             </Row>
+            {/* Botón para restablecer la página */}
+
         </div>
     );
 };

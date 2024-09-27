@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Table, Spin, Input } from 'antd';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 const { Search } = Input;
 
 interface PiezasTableProps {
     selectedEstado: string | null; // Prop para el estado seleccionado
     selectedPersona: string | null; // Prop para la persona seleccionada
+    dates: [string | null, string | null]; // Prop para el rango de fechas
 }
 
-const PiezasTable: React.FC<PiezasTableProps> = ({ selectedEstado, selectedPersona }) => {
+const PiezasTable: React.FC<PiezasTableProps> = ({ selectedEstado, selectedPersona, dates }) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState(''); // Estado para el término de búsqueda
@@ -33,6 +35,18 @@ const PiezasTable: React.FC<PiezasTableProps> = ({ selectedEstado, selectedPerso
                     filteredData = filteredData.filter((pieza: any) => pieza.ubicacion_actual === selectedPersona.toLowerCase());
                 }
 
+                // Filtrar por fechas si se han seleccionado
+                if (dates[0] && dates[1]) {
+                    const [startDate, endDate] = dates;
+                    filteredData = filteredData.filter((pieza: any) => {
+                        const piezaFechaEntrada = moment(pieza.fecha_entrada);
+                        return (
+                            piezaFechaEntrada.isSameOrAfter(moment(startDate)) &&
+                            piezaFechaEntrada.isSameOrBefore(moment(endDate))
+                        );
+                    });
+                }
+
                 setData(filteredData);
             } catch (error) {
                 console.error("Error al obtener los datos de la API", error);
@@ -42,7 +56,7 @@ const PiezasTable: React.FC<PiezasTableProps> = ({ selectedEstado, selectedPerso
         };
 
         fetchData();
-    }, [selectedEstado, selectedPersona]);
+    }, [selectedEstado, selectedPersona, dates]);
 
     // Filtrar los datos por el término de búsqueda (ticket)
     const searchedData = data.filter((pieza: any) => 
